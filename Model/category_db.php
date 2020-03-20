@@ -5,18 +5,34 @@ function get_categories() {
   global $db;
   $query = "SELECT * FROM categories 
             ORDER BY categoryID";
-  $result = $db->query($query);
-  return $result;
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $categories = $statement->fetchAll();
+  $statement->closeCursor();
+  return $categories;
 }
 
-function get_category_name($category_ID) {
+function delete_category($categoryID) {
   global $db;
-  $query = "SELECT * FROM categories 
-            WHERE categoryID IN(0,1,2,3,4,5)";
-  $category = $db->query($query);
-  $category = $category->fetch();
-  $category_name = $category['categoryName'];
-  return $category_name;
+  global $categoryID;
+  $query = "DELETE FROM categories WHERE categoryID = :categoryID";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':categoryID', $categoryID);
+  $statement->execute();
+  $statement->closeCursor();
 }
+
+function add_category($categoryName) {
+  global $db;
+  global $categoryName;
+  $query = "INSERT INTO categories (categoryName) VALUES (:categoryName)";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':categoryName', $categoryName);
+  $statement->execute();
+  $statement->closeCursor();
+  }
+
+
 
 ?>
+

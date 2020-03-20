@@ -5,7 +5,7 @@
     <title>To Do List</title>
     <meta name="description" content="To Do List">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../main.css">
   </head>
   <body>
     <div id="page">

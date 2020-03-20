@@ -1,38 +1,54 @@
 <?php
 
-function get_items_by_category ($category_ID) {
+function display_all() {
   global $db;
-  $query = "SELECT * FROM todoitems
-             WHERE todoitems.categoryID IN(0,1,2,3,4,5)
-             ORDER BY ItemNum";
-  $items = $db->query($query);
-  return $items;
+  global $categoryID;
+  if ($categoryID == NULL || $categoryID == FALSE) {
+  $query = "SELECT * FROM todoitems T
+            LEFT JOIN categories C ON T.categoryID = C.categoryID";
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $aitems = $statement->fetchAll();
+  $statement->closeCursor();
+  return $aitems;
+}}
+
+function show_item_by_category($categoryID) {
+  global $db;
+  global $categoryID;
+  if (isset($categoryID)) {
+  $query = "SELECT * FROM todoitems T
+            LEFT JOIN categories C ON T.categoryID = C.categoryID WHERE T.categoryID = $categoryID";
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $citems = $statement->fetchAll();
+  $statement->closeCursor();
+  return $citems;}
 }
 
-function get_item($item_Num) {
+function delete_item($ItemNum) {
   global $db;
-  $query = "SELECT * FROM todoitems
-            WHERE ItemNum = '$item_Num'";
-  $item = $db->query($query);
-  $item = $item->fetch();
-  return $item;
+  global $ItemNum;
+  $query = "DELETE FROM todoitems WHERE ItemNum = :ItemNum";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':ItemNum', $ItemNum);
+  $statement->execute();
+  $statement->closeCursor();
 }
 
-function delete_items ($item_Num) {
+function add_item($Title, $Description, $categoryID) {
   global $db;
-  $query ="DELETE FROM todoitems
-           WHERE ItemNum = '$item_Num'";
-  $db->exec($query);
-}
-
-function add_items ($category_ID, $item_Num, $title, $description) {
-  global$db;
-  $query = "INSERT INTO todoitems
-              (categoryID, ItemNum, Title, Description)
-            VALUES
-              ('$category_ID', '$item_Num', '$title', '$description')";
-  $db->exec($query);
-}
+  global $Title;
+  global $Description;
+  global $categoryID;
+  $query = "INSERT INTO todoitems (Title, Description, categoryID) VALUES (:Title, :Description, :categoryID)";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':Title', $Title);
+  $statement->bindValue(':Description', $Description);
+  $statement->bindValue(':categoryID', $categoryID);
+  $statement->execute();
+  $statement->closeCursor();
+    }
 
 
 ?>
