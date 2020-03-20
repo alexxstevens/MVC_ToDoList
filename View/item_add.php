@@ -3,7 +3,6 @@
   <h1>Add Product</h1>
   <form action="." method="GET" id="add_item_form">
     <input type="hidden" name="action" value="add_item" />
-
     <label>Category:</label>
     <select name="categoryID">
     <?php foreach ($categories as $category) : ?>
