@@ -11,8 +11,8 @@
   </head>
   <body>
     <div id="page">
-      <div id="header">
-        <h1>Things to Do</h1>
-        <h5>Manage your life and get productive!</h5>
+      <div class="header">
+        <h1 class="header">Things to Do</h1>
+        
       </div>
 

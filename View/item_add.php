@@ -1,31 +1,39 @@
 <?php include '../view/header.php'; ?>
+<br>
 <div id="main">
-  <h1>Add Product</h1>
+  <div class="heading">
+    <h1 class="heading">Add Product</h1>
+  </div><br>
   <form action="." method="GET" id="add_item_form">
     <input type="hidden" name="action" value="add_item" />
-    <label>Category:</label>
-    <select name="categoryID">
+    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Category:</label>
+    <select class="custom-select my-1 mr-sm-2" name="categoryID">
     <?php foreach ($categories as $category) : ?>
         <option value="<?php echo $category['categoryID']; ?>">
           <?php echo $category['categoryName']; ?>
         </option>
       <?php endforeach; ?>
     </select>
+    
+
+    <label class="my-1 mr-2" >Task:</label>
+    <input type="text" name="Title" class="form-control" />
     <br>
 
-    <label>Task:</label>
-    <input type="text" name="Title"/>
+    <label class="my-1 mr-2" >Description:</label>
+    <input type="text" name="Description" class="form-control" />
     <br>
 
-    <label>Description:</label>
-    <input type="text" name="Description"/>
-    <br>
-
-    <lavel>&nbsp;</label>
-    <input type="submit" value="Add Item"/>
+  
+    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Add Item" />
     <br>
   </form>
-  <p><a href="index.php?action=list_items">View To Do List</a></p>
+
+  <div >
+  <p id="second"><a href="index.php?action=list_items">Return to To Do List</a></p>
+    </div>
+   
+    <br>
 
 </div>
 <?php include '../view/footer.php'; ?>

@@ -3,7 +3,7 @@ include '../view/header.php'; ?>
 <div id="main">
 
 
-
+<br>
   <div class="category_dropdown">
     <form action="." method="GET" id="category">
         <select name="categoryID" class="custom-select my-1    mr-sm-2" >
@@ -15,17 +15,17 @@ include '../view/header.php'; ?>
           <option value="0">View All Categories</option>
         </select>
         <div id="submit">
-          <input class="btn btn-primary " type="submit" value="Submit">
+          <input class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">
         </div>
       </form>
 
-          
+          <br>
 
   <div id="content">
     <!-- display to do list -->
       <table>
         <tr>
-          <th>ID:</th>
+          <th class="hidden">ID:</th>
           <th>Category:</th>
           <th>Task:</th>
           <th>Description:</th>
@@ -35,7 +35,7 @@ include '../view/header.php'; ?>
         <?php if ($categoryID == NULL || $categoryID == FALSE) { 
         foreach($aitems as $aitem) : ?>
         <tr>
-          <td><?php echo ($aitem['categoryID']); ?></td>
+          <td  class="hidden"><?php echo ($aitem['categoryID']); ?></td>
           <td><?php echo ($aitem['categoryName']); ?></td>
           <td><?php echo ($aitem['Title']); ?></td>
           <td><?php echo ($aitem['Description']); ?></td>
@@ -43,7 +43,7 @@ include '../view/header.php'; ?>
             <input type="hidden" name="action" value="delete_item"/>
             <input type="hidden" name="ItemNum" value="<?php echo $aitem['ItemNum'];?>"/>
             <input type="hidden" name="categoryID" value="<?php echo $aitem['categoryID'];?>"/>
-            <input type="submit" value="Delete"/>
+            <input class="delete" type="submit" value="Delete"/>
           </form></td>
         </tr>
         <?php endforeach; } ?>
@@ -51,7 +51,7 @@ include '../view/header.php'; ?>
         <?php if (isset($categoryID)) { 
         foreach($citems as $citem) : ?>
         <tr>
-          <td><?php echo ($citem['categoryID']); ?></td>
+          <td  class="hidden"><?php echo ($citem['categoryID']); ?></td>
           <td><?php echo ($citem['categoryName']); ?></td>
           <td><?php echo ($citem['Title']); ?></td>
           <td><?php echo ($citem['Description']); ?></td>
@@ -59,15 +59,17 @@ include '../view/header.php'; ?>
             <input type="hidden" name="action" value="delete_item"/>
             <input type="hidden" name="ItemNum" value="<?php echo $citem['ItemNum'];?>"/>
             <input type="hidden" name="categoryID" value="<?php echo $citem['categoryID'];?>"/>
-            <input type="submit" value="Delete"/>
+            <input class="delete" type="submit" value="Delete"/>
           </form></td>
         </tr>
         <?php endforeach; } ?>
       </table>
+        <br>
 
-
-
+    
+  <div id="links">
     <p><a href="?action=show_add_form">Add Items to List</a></p>
     <p><a href="?action=show_category_list">View/Edit Categories</a></p>
   </div>
+  <br>
   <?php include '../view/footer.php'; ?>
